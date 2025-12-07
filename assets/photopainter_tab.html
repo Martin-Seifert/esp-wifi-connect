@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Entry List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .entry-list {
+      margin-top: 20px;
+    }
+    .entry {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .entry .date {
+      width: 150px;
+      margin-right: 10px;
+    }
+    .entry .value {
+      flex-grow: 1;
+    }
+    .entry button {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h3>Date Entry List</h3>
+
+  <label for="date">Select Date:</label>
+  <input type="date" id="date">
+  <br><br>
+
+  <label for="value">Enter Value:</label>
+  <input type="text" id="value">
+  <br><br>
+
+  <button onclick="addEntry()">Submit</button>
+
+  <div class="entry-list" id="entryList">
+    <!-- Entries will appear here -->
+  </div>
+
+  <script>
+    let entries = [];
+
+    function addEntry() {
+      const dateInput = document.getElementById('date');
+      const valueInput = document.getElementById('value');
+      const date = dateInput.value;
+      const value = valueInput.value.trim();
+
+      if (date && value) {
+        // Create new entry object
+        const entry = { date, value };
+
+        // Add entry to the list
+        entries.push(entry);
+
+        // Sort entries by date
+        entries.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        // Clear the inputs
+        dateInput.value = '';
+        valueInput.value = '';
+
+        // Update the display
+        renderEntries();
+      } else {
+        alert('Please select a date and enter a value.');
+      }
+    }
+
+    function removeEntry(index) {
+      // Remove entry by index
+      entries.splice(index, 1);
+      renderEntries();
+    }
+
+    function editEntry(index) {
+      const newValue = prompt('Edit the value:', entries[index].value);
+      if (newValue !== null) {
+        entries[index].value = newValue;
+        renderEntries();
+      }
+    }
+
+    function renderEntries() {
+      const entryListDiv = document.getElementById('entryList');
+      entryListDiv.innerHTML = ''; // Clear the list before rendering
+
+      entries.forEach((entry, index) => {
+        const entryDiv = document.createElement('div');
+        entryDiv.classList.add('entry');
+
+        const dateSpan = document.createElement('span');
+        dateSpan.classList.add('date');
+        dateSpan.textContent = entry.date;
+
+        const valueSpan = document.createElement('span');
+        valueSpan.classList.add('value');
+        valueSpan.textContent = entry.value;
+
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.onclick = () => removeEntry(index);
+
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.onclick = () => editEntry(index);
+
+        entryDiv.appendChild(dateSpan);
+        entryDiv.appendChild(valueSpan);
+        entryDiv.appendChild(editButton);
+        entryDiv.appendChild(removeButton);
+
+        entryListDiv.appendChild(entryDiv);
+      });
+    }
+  </script>
+
+</body>
+</html>
+

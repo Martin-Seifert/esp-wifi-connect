@@ -229,6 +229,7 @@
     <div class="tabs">
         <div class="tab active" onclick="switchTab('wifi')" data-lang="wifi_tab">Wi-Fi Config</div>
         <div class="tab" onclick="switchTab('advanced')" data-lang="advanced_tab">Advanced</div>
+        <div class="tab" onclick="switchTab('photopainter')" data-lang="photopainter_tab">Photopainter</div>
     </div>
 
     <!-- Wi-Fi Configuration Tab -->
@@ -318,6 +319,12 @@
             </div>
         </form>
     </div>
+
+    <!-- Photopainter Tab -->
+    <div id="photopainter-tab" class="tab-content">
+        <iframe src="photopainter_tab.html" width="100%" height="500px" style="border: none;"></iframe>
+    </div>
+
 
     <script type="text/javascript">
         // ========== Global Variables ==========
@@ -430,6 +437,7 @@
                 scanning: 'Scanne...',
                 wifi_tab: 'Wi-Fi-Konfiguration',
                 advanced_tab: 'Erweitert',
+                photopainter_tab: 'Photopainter',
                 ota_url: 'Benutzerdefinierte OTA-URL:',
                 max_tx_power: 'Wi-Fi Max. Sendeleistung:',
                 remember_bssid: 'BSSID beim Verbinden mit Wi-Fi merken',
